@@ -2,57 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Global styles previously in <style> */
-:where([class^="ri-"])::before { content: "\f3c2"; }
 body {
-  background-color: #000000;
-  color: #90EE90;
-  font-family: 'Poppins', sans-serif;
-}
-.nav-link {
-  position: relative;
-}
-.nav-link::after {
-  content: '';
-  position: absolute;
-  width: 0;
-  height: 2px;
-  bottom: -4px;
-  left: 0;
-  background-color: #00FF00;
-  transition: width 0.3s ease;
-}
-.nav-link:hover::after {
-  width: 100%;
-}
-.hero-section {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://readdy.ai/api/search-image?query=luxury%20beauty%20salon%20interior%20with%20elegant%20styling%20stations%2C%20dark%20ambiance%2C%20subtle%20green%20lighting%20accents%2C%20professional%20equipment%2C%20high-end%20beauty%20products%20displayed%2C%20comfortable%20seating%2C%20modern%20design%20elements%2C%20atmospheric%20lighting%2C%20creating%20an%20upscale%20salon%20atmosphere&width=1920&height=1080&seq=1&orientation=landscape');
-  background-size: cover;
-  background-position: center;
-}
-.contact-card {
-  background: rgba(0, 0, 0, 0.5);
-  border: 1px solid rgba(0, 255, 0, 0.3);
-  backdrop-filter: blur(5px);
-}
-.social-icon:hover {
-  filter: brightness(1.5);
-  transform: scale(1.1);
-}
-input:focus, textarea:focus {
-  outline: none;
-  border-color: #00FF00;
-  box-shadow: 0 0 0 2px rgba(0, 255, 0, 0.2);
-}
-.btn-hover:hover {
-  background-color: #000;
-  color: #00FF00;
-  box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
-}
-.service-card {
-  transition: all 0.3s ease;
-}
-.service-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(0, 255, 0, 0.2);
+  background: black;
+  color: lime;
 }
