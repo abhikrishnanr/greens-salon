@@ -1,0 +1,84 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  role          String    @default("customer") // customer | staff | manager | admin
+
+  branchId String?
+  branch   Branch? @relation("UserBranch", fields: [branchId], references: [id])
+
+  bookings      Booking[] @relation("CustomerBookings")
+  staffBookings Booking[] @relation("StaffAssignments")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Branch {
+  id      String  @id @default(cuid())
+  name    String
+  address String
+  phone   String
+  upiId   String?
+  qrUrl   String?
+
+  users    User[]    @relation("UserBranch")
+  services Service[]
+  bookings Booking[] @relation("BranchBookings")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Service {
+  id       String @id @default(cuid())
+  name     String
+  category String
+  duration Int // in minutes
+  price    Float
+
+  branchId String
+  branch   Branch @relation(fields: [branchId], references: [id])
+
+  bookings  Booking[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Booking {
+  id String @id @default(cuid())
+
+  userId String
+  user   User   @relation("CustomerBookings", fields: [userId], references: [id])
+
+  serviceId String
+  service   Service @relation(fields: [serviceId], references: [id])
+
+  branchId String
+  branch   Branch @relation("BranchBookings", fields: [branchId], references: [id])
+
+  staffId String?
+  staff   User?   @relation("StaffAssignments", fields: [staffId], references: [id])
+
+  status    String   @default("pending") // pending, confirmed, cancelled, completed
+  date      DateTime
+  paid      Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
